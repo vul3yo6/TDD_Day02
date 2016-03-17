@@ -27,6 +27,11 @@ namespace BookStore
                 sum += book.Price;
             }
 
+            if (Cart.Count == 2)
+            {
+                sum *= 0.95m;
+            }
+
             return sum;
         }
     }
