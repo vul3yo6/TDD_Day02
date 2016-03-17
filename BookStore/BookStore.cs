@@ -31,6 +31,10 @@ namespace BookStore
             {
                 sum *= 0.95m;
             }
+            else if (Cart.Count == 3)
+            {
+                sum *= 0.9m;
+            }
 
             return sum;
         }
