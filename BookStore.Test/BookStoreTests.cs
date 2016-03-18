@@ -117,6 +117,29 @@ namespace BookStore.Test
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        public void Test_一套加孤本_一二集各買了一本_第三集買了兩本_價格應為370()
+        {
+            //Arrange
+            var list = new List<Book>()
+            {
+                new Book() { Id = 1, Name = "第一集", Price = 100m },
+                new Book() { Id = 2, Name = "第二集", Price = 100m },
+                new Book() { Id = 3, Name = "第三集", Price = 100m },
+                new Book() { Id = 3, Name = "第三集", Price = 100m },
+            };
+
+            var target = new BookStore();
+            var expected = (100m * 3 * 0.9m) + 100m;
+
+            //Act
+            target.Add(list);
+            decimal actual = target.Calculate();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
         private IEnumerable<Book> GetInitList()
         {
             var list = new List<Book>()

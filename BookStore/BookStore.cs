@@ -21,28 +21,54 @@ namespace BookStore
 
         public decimal Calculate()
         {
-            decimal sum = 0m;
+            var groupList = new List<BookGroup>();
             foreach (var book in Cart)
             {
-                sum += book.Price;
+                var group = groupList.FirstOrDefault();
+                if (group == null)  // 第一次
+                {
+                    var newGroup = new BookGroup();
+                    newGroup.Add(book);
+                    groupList.Add(newGroup);
+                }
+                else
+                {
+                    if (group.ContainsKey(book.Id) == false)
+                    {
+                        group.Add(book);
+                    }
+                    else
+                    {
+                        var newGroup = new BookGroup();
+                        newGroup.Add(book);
+                        groupList.Add(newGroup);
+                    }
+                }
             }
 
-            if (Cart.Count == 2)
-            {
-                sum *= 0.95m;
-            }
-            else if (Cart.Count == 3)
-            {
-                sum *= 0.9m;
-            }
-            else if (Cart.Count == 4)
-            {
-                sum *= 0.8m;
-            }
-            else if (Cart.Count == 5)
-            {
-                sum *= 0.75m;
-            }
+            decimal sum = groupList.Sum(x => x.Calculate());
+            //decimal sum = 0m;
+            //foreach (var book in Cart)
+            //{
+            //    sum += book.Price;
+            //}
+
+            //if (dic4Qty.Count == 2)
+            //{
+            //    sum *= 0.95m;
+            //}
+            //else if (dic4Qty.Count == 3)
+            //{
+            //    sum *= 0.9m;
+            //}
+            //else if (dic4Qty.Count == 4)
+            //{
+            //    sum *= 0.8m;
+            //}
+            //else if (dic4Qty.Count == 5)
+            //{
+            //    sum *= 0.75m;
+            //}
 
             return sum;
         }
