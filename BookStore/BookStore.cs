@@ -24,7 +24,7 @@ namespace BookStore
             var groupList = new List<BookGroup>();
             foreach (var book in Cart)
             {
-                var group = groupList.FirstOrDefault();
+                var group = groupList.Find(x => x.ContainsKey(book.Id) == false);
                 if (group == null)  // 第一次
                 {
                     var newGroup = new BookGroup();
@@ -33,16 +33,16 @@ namespace BookStore
                 }
                 else
                 {
-                    if (group.ContainsKey(book.Id) == false)
-                    {
-                        group.Add(book);
-                    }
-                    else
-                    {
-                        var newGroup = new BookGroup();
-                        newGroup.Add(book);
-                        groupList.Add(newGroup);
-                    }
+                    group.Add(book);
+                    //if (group.ContainsKey(book.Id) == false)
+                    //{
+                    //}
+                    //else
+                    //{
+                    //    var newGroup = new BookGroup();
+                    //    newGroup.Add(book);
+                    //    groupList.Add(newGroup);
+                    //}
                 }
             }
 
